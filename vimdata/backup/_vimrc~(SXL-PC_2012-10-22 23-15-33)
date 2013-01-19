@@ -1,0 +1,263 @@
+﻿set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+"Set mapleader
+let mapleader = ","
+
+"SQLUtilities：这是一个用来格式化sql语言的，\sf 格式化当前行，如果sql语言占3行，则用3\sf
+vmap <silent>sf        <Plug>SQLU_Formatter<CR> 
+nmap <silent>scl       <Plug>SQLU_CreateColumnList<CR> 
+nmap <silent>scd       <Plug>SQLU_GetColumnDef<CR> 
+nmap <silent>scdt      <Plug>SQLU_GetColumnDataType<CR> 
+nmap <silent>scp       <Plug>SQLU_CreateProcedure<CR> 
+
+" <leader>W 清除行尾的空白字符
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+" 选中刚才粘贴的代码
+nnoremap <leader>V V`]
+" 水平分割窗口
+nnoremap <leader>s <C-w>s
+" 垂直分割窗口
+nnoremap <leader>v <C-w>v
+
+"快速重新载入vimrc配置文件
+map <silent> <leader>ss :source $VIM./_vimrc<cr>
+"快速编辑vimrc配置文件
+map <silent> <leader>ee :e $VIM./_vimrc<cr>
+"当编辑vimrc配置文件后，重新载入配置。
+autocmd! bufwritepost _vimrc source $VIM./_vimrc 
+
+" Ctrl+jkhl 来切换分割的窗口
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+"映射F8键为开关Winmanager
+nmap <F8> :WMToggle<cr>
+
+"NERDTree插件
+map <F10> :NERDTreeToggle<CR>
+
+" Indent
+" Guides插件，用来显示对齐线，修改默认的对齐线宽度,默认的键盘映射是<mapleader>ig
+let g:indent_guides_guide_size=1
+
+"让vim编辑模式回车后保持上行的缩进
+set autoindent
+
+"启动的时候不显示那个援助索马里儿童的提示
+set shortmess=atI
+
+"windows下隐藏工具栏
+set guioptions-=T
+
+"把gui左边的滑动条去掉
+set guioptions-=L
+
+"把gui右边的滑动条去掉
+set guioptions-=r
+
+"显示下方的横向滚动条
+set guioptions+=b
+
+"windows下启动vim最大化
+autocmd GUIEnter * simalt ~x
+
+"设置不自动换行
+set nowrap
+
+"设置行号
+set number
+
+"设置字体
+"set guifont=Monaco:h9
+set guifont=Bitstream_Vera_Sans_Mono:h10:cANSI
+set gfw=幼圆:h10.5:cGB2312
+
+"设置底色
+set background=dark
+
+"设置主题
+:colorscheme DarkDefault
+
+"定义变量 $VIMFILES
+let $VIMFILES = $VIM.'/vimfiles'
+
+"定义变量 $VIMDATA
+let $VIMDATA = $VIMFILES.'/vimdata'
+
+"设置备份文件路径
+set backupdir=$VIMDATA/backup
+set directory=$VIMDATA/temp
+
+"类似C语言程序的缩进
+set cindent
+
+"自动缩进，即为新行自动添加与当前行同等的缩进
+set autoindent
+
+"基于autoindent的一些改进
+set smartindent
+
+"搜索逐字符高亮，查询时非常方便，如要查找book单词，当输入到/b时，会自动找到第一
+"个b开头的单词，当输入到/bo时，会自动找到第一个bo开头的单词，依
+"次类推，进行查找时，使用此设置会快速找到答案，当你找要匹配的单词
+"时，别忘记回车
+set hlsearch
+set incsearch
+
+"打开语法高亮
+syntax on
+
+"自动缩进4个空格
+set shiftwidth=4
+
+"定义tab所等同的空格长度
+set tabstop=4
+
+"表示让tab的宽度显示成和4个空格的宽度一样，shiftwidth和tabstop不一样的话，你会发现程序比较难看的。
+set softtabstop=4
+
+"高亮显示匹配的括号
+set showmatch
+
+"设置当文件从外部被改动时自动载入
+set autoread
+
+"设置不兼容模式
+set nocp
+
+"打开文件类型检测功能，它相当于文件类型检测功能的开关。在执行”filetype on“命令时，vim实际上执行的是$vimRUNTIME/filetype.vim脚本。这个脚本使用了自动命令(autocmd)来根据文件名来判断文件的类型，如果无法根据文件名来判断出文件类型，它又会调用$vimRUNTIME/scripts.vim来根据文件的内容设置文件类型。
+filetype on
+
+"允许vim加载文件类型插件。当这个选项打开时，vim会根据检测到的文件类型，在runtimepath中搜索该类型的所有插件，并执行它们。实际上是执行$vimRUNTIME/ftplugin.vim脚本
+filetype plugin on
+
+"允许vim为不同类型的文件定义不同的缩进格式。这条命令也是通过一个脚本来完成加载：$vimRUNTIME/indent.vim。和”filetype plugin on“类似，它也通过设置自动命令，在runtimepath的indent子目录中搜索缩进设置。对c类型的文件来说，它只是打开了cindent选项。
+filetype indent on
+
+"Python 文件的一般设置，比如不要tab等
+autocmd FileType python setlocal et sta sw=4 sts=4
+
+"正在被编辑的文件的编码，它也决定新文件的编码。如果为空，表示与encoding相同。如果与encoding不同，vi将会在保存和读取时做二者之间的转换。
+set fileencoding=utf-8
+let &termencoding=&encoding
+
+"供vi尝试的编码列表，vi会逐个尝试每一项，如果没有发生错误，就设置当前的fileencoding为与该项相同的值。如果均失败，fileencoding将为空。
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+
+"设置记录的历史操作列表
+set history=10000
+
+"行内替换
+set gdefault
+
+"语言设置
+set langmenu=zh_CN.UTF-8
+set helplang=cn
+
+"状态行显示的内容（包括文件类型和解码）
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+
+"总是显示状态行(默认值为1, 无法显示状态栏)
+set laststatus=2
+
+"打开光标的行列位置显示功能
+set ruler
+
+"命令行（在状态行下）的高度，默认为1，这里是2
+set cmdheight=2
+
+"带有如下符号的单词不要被换行分割
+set iskeyword+=_,$,@,%,#,-
+
+"字符间插入的像素行数目
+set linespace=0
+
+"增强模式中的命令行自动完成操作
+set wildmenu
+
+"使回格键（backspace）正常处理indent, eol, start等
+set backspace=2
+
+"允许backspace和光标键跨越行边界
+set whichwrap+=<,>,h,l
+
+"可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
+set mouse=a
+set selection=exclusive
+set selectmode=mouse,key
+
+"在被分割的窗口间显示空白，便于阅读
+set fillchars=vert:\ ,stl:\ ,stlnc:\
+
+"匹配括号高亮的时间（单位是十分之一秒）
+set matchtime=5
+
+"启动vim时不要自动折叠代码
+set foldlevel=100
+
+"ctags安装路径
+let Tlist_Ctags_Cmd='"C:\vim\ctags58\ctags.exe"'
+
+"打开javascript折叠
+let b:javascript_fold=1
+
+"打开javascript对dom、html和css的支持
+let javascript_enable_domhtmlcss=1
+
+"minibufexpl插件的一般设置
+let g:miniBufExplMapWindowNavVim=1
+let g:miniBufExplMapWindowNavArrows=1
+let g:miniBufExplMapCTabSwitchBufs=1
+let g:miniBufExplModSelTarget=1
+
+"配置WinManager
+let g:winManagerWindowLayout='FileExplorer|TagList|BufExplorer'
+
+"这里设置左侧栏目的宽度
+let g:winManagerWidth=35
+
+
+"jslint插件
+let g:jslint_command='C:\vim\jsl-0.3.0\jsl.exe'
+
+
+
+
+
+
+
+
+
+
+"在所有标签页的窗口中查找指定的文件名，如果找到这样一个窗口，就跳到此窗口中；否则，它新建一个标签页来打开vimrc文件
+function! SwitchToBuf(filename)
+    "let fullfn = substitute(a:filename, "^\\~/", $HOME . "/", "")
+    " find in current tab
+    let bufwinnr = bufwinnr(a:filename)
+    if bufwinnr != -1
+        exec bufwinnr . "wincmd w"
+        return
+    else
+        " find in each tab
+        tabfirst
+        let tab = 1
+        while tab <= tabpagenr("$")
+            let bufwinnr = bufwinnr(a:filename)
+            if bufwinnr != -1
+                exec "normal " . tab . "gt"
+                exec bufwinnr . "wincmd w"
+                return
+            endif
+            tabnext
+            let tab = tab + 1
+        endwhile
+        " not exist, new tab
+        exec "tabnew " . a:filename
+    endif
+endfunction
+

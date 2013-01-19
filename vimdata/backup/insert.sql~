@@ -1,0 +1,34 @@
+insert into zp_tel.tel_emp_call_rule (CR_GUID, CR_COMP_ID, CR_CONDITION, CR_COMMENT, CR_START_TIME, CR_END_TIME, IS_VALID, CREATE_TIME, CR_DIS_LEN, CR_LEN, CR_BIZ_ID, CR_GT_CONDITION, CR_GT_COMMENT)
+values (168, 32731, '(emp_comp_id = 32731 and emp_biz_id=110 and
+       (call_date between
+       to_date(to_char(trunc(call_date), ''yyyymmdd'') || '' 09:00'',''yyyymmdd hh24:mi'') and
+       to_date(to_char(trunc(call_date), ''yyyymmdd'') || '' 12:00'',''yyyymmdd hh24:mi'')
+       or
+       call_date between
+       to_date(to_char(trunc(call_date), ''yyyymmdd'') || '' 13:00'',''yyyymmdd hh24:mi'') and
+       to_date(to_char(trunc(call_date), ''yyyymmdd'') || '' 18:00'',''yyyymmdd hh24:mi'')
+       ) and
+       length(call_phone) >= 7 and
+       call_flag = 0 and
+       call_phone not like ''400%'' and
+       call_phone not like ''800%'' and
+       call_phone <> ''13800138000'' and
+       call_phone not like ''NX%'' and
+       call_phone not like ''12580%'' and
+       elap_time >= 45)', '无锡销售部
+   只统计呼出电话统计时间段为9:00-12:00,13:00-18:00
+   电话号码大于等于7位
+   电话号码不等于13800138000
+   电话号码不是400或800开头
+  呼转电话不计入有效电话量统计 
+   通话时长大于等于45秒', to_date('1-11-2012 09:04:10', 'dd-mm-yyyy hh24:mi:ss'), null, 1, to_date('1-11-2012 09:04:10', 'dd-mm-yyyy hh24:mi:ss'), 0, 900, 110, '(emp_comp_id = 32731 and emp_biz_id=110 and
+       (call_date between
+       to_date(to_char(trunc(call_date), ''yyyymmdd'') || '' 08:50'',''yyyymmdd hh24:mi'') and
+       to_date(to_char(trunc(call_date), ''yyyymmdd'') || '' 11:30'',''yyyymmdd hh24:mi'')
+       or
+       call_date between
+       to_date(to_char(trunc(call_date), ''yyyymmdd'') || '' 13:20'',''yyyymmdd hh24:mi'') and
+       to_date(to_char(trunc(call_date), ''yyyymmdd'') || '' 17:00'',''yyyymmdd hh24:mi'')
+       ) and    
+       call_valid=1)', '无锡销售部黄金时间段8:50-11:30,13:20-17:00 ')
+

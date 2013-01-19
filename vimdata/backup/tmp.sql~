@@ -1,0 +1,10 @@
+select emp_id,
+       substr(emp_email, 0, instr(emp_email, '@', 1, 1) - 1),
+       emp_email,
+       '123456' as password,
+       0 as is_valid
+  from zp_dw.DW_DIMENSION_EMP emp
+ where emp.emp_flg = 1
+   and emp.is_valid = 1
+   and emp_email like '%@%'
+

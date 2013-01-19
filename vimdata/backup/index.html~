@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript">
+		function getdate (name, xxx, ssss
+				) {
+			/* cursor */
+			var x=document
+		}
+		
+		</script>
+	</head>
+	<body>
+		<div class="row">
+			<div class="span1">:w</div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<input type="button" />
+			kdd
+			<div class="span1"></div>
+		</div>
+		<div id="page" class="asss">
+			<div id="ab" class="log">:</div>
+			<ul id="nav" class="abc">
+				<li><a href=""></a></li>
+				<li><a href=""></a></li>
+				<li><a href=""></a></li>
+				<li><a href=""></a></li>
+				<li><a href=""></a></li>
+			</ul>
+		</div>
+		<ul>
+			<li>aaa</li>
+			<li>ddasdf</li>
+			<li>sdf</li>
+			<li>bb</li>
+			<li>cckk</li>
+			<li>k</li>
+		</ul>
+		<img src="aaa" alt="" width="32" height="32"/>
+	</body>
+</html>
