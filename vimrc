@@ -34,9 +34,9 @@ au FocusLost * :wa
 "set nowrap "设置不自动换行
 set number "设置行号
 set wrap 
-set textwidth=120 
+set textwidth=90 
 set formatoptions=qrn1 
-set colorcolumn=121
+set colorcolumn=91
 "set background=dark "设置底色
 :colorscheme molokai "设置主题
 
@@ -133,7 +133,7 @@ map <F2> :NERDTreeFind<CR>
 nmap <F3> :TagbarToggle<CR>
 
 "cscope设置
-map <F4> :cs add /home/rp/go/cscope.out<cr>
+map <F5> :cs add /home/rp/go/cscope.out<cr>
 
 "设置F8编译程序
 noremap <f8>  :call Make_Inf()<cr>
@@ -148,10 +148,10 @@ noremap <f11>  :cd %:h<cr>
 noremap <f12>  :call Run_Inf()<cr>
 
 "设置保存当前的session状态
-noremap <leader>mk :mks! $VIM/my_session.vim<cr> 
+noremap <leader>mk :mks! ~/.vim/session/%:t.vim<cr> 
 
 "设置恢复当前的session状态
-noremap <leader>ms :so $VIM/my_session.vim<cr>
+noremap <leader>ms :so ~/.vim/session/
 
 "快速格式化
 map <silent> <leader>F :!go fmt %<cr>
@@ -183,7 +183,7 @@ nmap <C-Z> :shell<cr>
 nmap <space> :
 
 "自动取词翻译
-nmap <s-i> :call Youdao()<cr>
+nmap <s-i> :!sdcv <C-R>=expand("<cword>")<cr><cr>
 
 " Tab和Shift-Tab缩进
 nmap <tab> v>
@@ -192,8 +192,8 @@ vmap <tab> >gv
 vmap <s-tab> <gv
 
 "按两次 <Esc>退出
-nnoremap  <Esc><Esc> :qa<cr>
-inoremap  <Esc><Esc> <Esc>:qa<cr>
+nnoremap  <Esc><Esc>  :mks! ~/.vim/session/%:t.vim<cr>:qa<cr>
+inoremap  <Esc><Esc> <Esc> :mks! ~/.vim/session/%:t.vim<cr>:qa<cr>
 
 "搜索光标下文字
 nmap <leader>rw :%s/\<<C-R>=expand("<cword>")<CR>\>/
@@ -224,9 +224,6 @@ nnoremap <leader>B :%s/^\(.*\)\($\)/\1,\2/<CR>:nohl<CR>
 map <silent> <leader>ee <C-w><C-v><C-l>:e $VIM/vimrc<cr>
 "当编辑vimrc配置文件后，重新载入配置。
 autocmd! bufwritepost vimrc source $VIM/vimrc 
-
-"Crl+jkhl 来切换分割的窗口
-nnoremap <leader>S :ConqueTermVSplit bash<CR>
 
 "快速定位
 map F H,,f
@@ -260,10 +257,6 @@ nnoremap <silent> <leader>ff :CtrlP <CR>
 
 "映射cscope快捷键
 nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-nmap <C-@>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-@>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-nmap <C-@>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
 nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
 nmap <C-@>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>:copen<CR>
 nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
@@ -272,11 +265,6 @@ nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
 "插件设置
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 runtime macros/matchit.vim "使用增强的百分号
-
-let g:netrw_winsize = 30 "Sexplore插件设置
-let g:netrw_list_hide = '^\..*' "Sexplore插件设置
-let g:netrw_browse_split = 2
-let g:netrw_liststyle= 3
 
 """"""""""""""""""""""""""""""
 " Tag list (ctags) 设置Taglist
@@ -293,8 +281,8 @@ let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height=30
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_mruf_max = 0
-"let g:ctrlp_use_caching = 1
-"let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_max_files = 0
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/* " Linux/MacOSX
@@ -311,9 +299,6 @@ let g:Powerline_symbols = 'fancy'
 "设置jquery语法支持
 au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 
-"ctags安装路径
-"let Tlist_Ctags_Cmd=$VIM'ctags58/ctags.exe'
-
 "打开javascript折叠
 let b:javascript_fold=1
 
@@ -322,7 +307,6 @@ let javascript_enable_domhtmlcss=1
 
 "js语法高亮脚本的设置
 let g:javascript_enable_domhtmlcss=1
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
 "minibufexpl插件的一般设置
 let g:miniBufExplMapWindowNavVim=1
@@ -398,13 +382,16 @@ Bundle 'youdao.dict'
 Bundle 'pathogen.vim'
 
 Bundle 'cecutil'
-Bundle 'minibufexpl.vim'
+
+Bundle 'cecutil'
+Bundle 'Mark'
 "markdown语法高亮插件
 Bundle 'plasticboy/vim-markdown'
 "注释插件
 Bundle 'The-NERD-Commenter'
 "快速输入配对括号插件
 Bundle 'tpope/vim-unimpaired'
+Bundle 'minibufexpl.vim'
 "高亮括号插件
 Bundle 'rainbow_parentheses.vim'
 "快速输入环绕文字插件
@@ -472,26 +459,6 @@ function! SwitchToBuf(filename)
 		exec "tabnew " . a:filename
 	endif
 endfunction
-
-" lookup file with ignore case 忽略大小写的文件查找
-function! LookupFile_IgnoreCaseFunc(pattern)
-	let _tags = &tags
-	try
-		let &tags = eval(g:LookupFile_TagExpr)
-		let newpattern = '\c' . a:pattern
-		let tags = taglist(newpattern)
-	catch
-		echohl ErrorMsg | echo "Exception: " . v:exception | echohl NONE
-		return ""
-	finally
-		let &tags = _tags
-	endtry
-
-	" Show the matches for what is typed so far.
-	let files = map(tags, 'v:val["filename"]')
-	return files
-endfunction
-let g:LookupFile_LookupFunc = 'LookupFile_IgnoreCaseFunc'
 
 """""""""""""""""""""""""""""""
 "自动恢复上次的session状态
